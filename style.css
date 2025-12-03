@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body {
+    font-family: 'Poppins', monospace;
+    background: linear-gradient(135deg, #232023 0%, #00df82 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 650px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #667eea;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+ul {
+    display: grid;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    margin-top:.7rem;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    grid-row: 1 / span 2;
+}
+
+ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+.task-text {
+    flex: 1;
+}
+
+.checkBtn, .deleteBtn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background: #4CAF50;
+    color: white;
+    transition: background 0.3s;
+}
+
+.deleteBtn {
+    background: #f44336;
+}
+
+.checkBtn:hover {
+    background: #45a049;
+}
+
+.deleteBtn:hover {
+    background: #da190b;
+}
+
+li.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
