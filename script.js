@@ -27,6 +27,7 @@ const navSubmenus = document.querySelectorAll('.nav-submenu');
 const navSubitems = document.querySelectorAll('.nav-subitem');
 const searchInput = document.getElementById('searchInput');
 const addListBtn = document.getElementById('addListBtn');
+const addTaskBtn = document.getElementById('addTaskBtn');
 
 // INISIALISASI VARIABEL
 function init() {
@@ -38,7 +39,7 @@ function init() {
 
 // MENYIMPAN DATA DARI LOCAL STORAGE
 function loadState() {
-    const saved = localStorage.getItem('todoAppState');
+    const saved = localStorage.getItem('todoAppData');
     if (saved) {
         const data = JSON.parse(saved);
         state.tasks = data.tasks || state.tasks;
@@ -97,12 +98,11 @@ function saveData() {
 }
 
 // ATUR WAKTU TERBARU
-function currentDate() {
-    const tooday  = new Date();
-    const option =  {day: 'numeric', month: 'long', year: 'numeric' };
-    const formattedDate = today.toLocalDateString('en-GB', option);
+function setCurrentDate() {
+    const today = new Date();
     const ordinal = getOrdinal(today.getDate());
-    document.getElementById('currentDate').textContent = `${ordinal} ${today.toLocalDateString('en-GB', {month: 'long', year: 'numeric'})}`;
+    const monthYear = today.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    document.getElementById('currentDate').textContent = `${ordinal} ${monthYear}`;
 }
 
 function getOrdinal(num) {
@@ -148,14 +148,14 @@ function setupEventListeners() {
     });
 
     // menambahkan tombol task
+    // handlers for add buttons and task menu
+    if (addListBtn) addListBtn.addEventListener('click', () => openListModal());
+    if (addTaskBtn) addTaskBtn.addEventListener('click', () => openTaskModal());
     document.addEventListener('click', (e) => {
-        if (e.target.closest('#addListBtn')) {
-            openListModal();
-        }
         if (e.target.closest('.task-menu')) {
             const card = e.target.closest('.task-card');
-            showTaskMenu();
-        };
+            showTaskMenu(card);
+        }
     });
 
     // pencarian
@@ -185,7 +185,7 @@ function setupEventListeners() {
     listForm.addEventListener('submit', handleListSubmit);
 
     // Tombol Cancel
-    document.querySelectorAll('#cancelBtn', '[type="button"]').forEach(btn => {
+    document.querySelectorAll('#cancelBtn, [type="button"]').forEach(btn => {
         if (btn.textContent === 'Cancel') {
             btn.addEventListener('click', () => {
                 taskModal.classList.remove('open');
@@ -275,7 +275,7 @@ function openTaskModal(taskId = null) {
 
     if (taskId) {
         const task = state.tasks[state.currentList].find(t => t.id === taskId);
-        if (taskId) {
+        if (task) {
             document.getElementById('modalTitle').textContent = 'Edit Task';
             document.getElementById('taskTitle').value = task.title;
             document.getElementById('taskDescription').value = task.description;
@@ -345,20 +345,27 @@ function handleListSubmit(e) {
     saveData();
 
     // menambahkan ke sidebar
-    const listMenu = document.getElementById('todoListMenu');
-    const newItem = document.getElementById('button');
-    newItem.className = 'nav-subItem';
+    const listMenu = document.getElementById('todoListsMenu');
+    const newItem = document.createElement('button');
+    newItem.className = 'nav-subitem';
     newItem.dataset.listId = listId;
     newItem.textContent = listName;
 
     newItem.addEventListener('click', () => {
-        navSubitems.forEach(i => i.classList.remove('remove'));
+        // remove active on existing items inside the todo lists menu
+        document.querySelectorAll('#todoListsMenu .nav-subitem').forEach(i => i.classList.remove('active'));
         newItem.classList.add('active');
         state.currentList = listId;
         renderTasks();
     });
 
     listMenu.appendChild(newItem);
+    // set new list as active and render immediately
+    document.querySelectorAll('#todoListsMenu .nav-subitem').forEach(i => i.classList.remove('active'));
+    newItem.classList.add('active');
+    state.currentList = listId;
+    renderTasks();
+
     listModal.classList.remove('open');
 }
 

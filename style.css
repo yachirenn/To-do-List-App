@@ -206,6 +206,13 @@ main {
     text-wrap: nowrap;
     cursor: pointer;
     font-size: .95rem;
+    transition: all .3s ease;
+}
+
+@media (max-width: 768px) {
+    .date-picker {
+        display: none;
+    }
 }
 
 .header-actions {
@@ -219,18 +226,18 @@ main {
     height: 40px;
     border: none;
     border-radius: 50%;
-    background: white;
+    background: rgb(189, 189, 189);
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    color: var(--text-dark);
+    color: var(--text-color);
     transition: all .3s ease;
 }
 
 .icon-btn:hover {
-    background: var(--light-bg);
+    background: var(--text-dark);
     color: var(--primary-color);
 }
 
@@ -239,6 +246,12 @@ main {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
+}
+
+.toolbar-buttons {
+    display:flex;
+    gap:0.75rem;
+    align-items:center;
 }
 
 .search-box {
