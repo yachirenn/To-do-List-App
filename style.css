@@ -66,7 +66,7 @@ body {
     display: flex;
     align-items: center;
     gap: .8rem;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-dark);
 }
@@ -201,8 +201,9 @@ main {
     align-items: center;
     gap: .5rem;
     padding: .6rem 1rem;
-    background: white;
+    background: var(--primary-color);
     border-radius: .5rem;
+    color: var(--text-color);
     text-wrap: nowrap;
     cursor: pointer;
     font-size: .95rem;
@@ -221,24 +222,35 @@ main {
     gap: 1rem;
 }
 
+.icon-btn svg {
+    color: black;
+}
+
 .icon-btn {
     width: 40px;
     height: 40px;
     border: none;
     border-radius: 50%;
-    background: rgb(189, 189, 189);
+    background: none;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    color: var(--text-color);
+    color: #001f3f;
     transition: all .3s ease;
 }
 
+.icon-btn svg path {
+  fill: #333333 !important;
+}
+.icon-btn:hover svg path,
+.icon-btn:focus svg path {
+  fill: #e3e3e3 !important;
+}
+
 .icon-btn:hover {
-    background: var(--text-dark);
-    color: var(--primary-color);
+    background: var(--primary-color);
 }
 
 /* Toolbar */
@@ -310,22 +322,29 @@ main {
 .tabs {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 1.3rem;
+    padding-bottom: .8rem;
+    border-bottom: 2px solid grey;
 }
 
 .tab-btn {
-    padding: 1rem;
+    padding: 1rem 1rem .8rem;
     background: none;
     border: none;
     cursor: pointer;
-    border-bottom: 3xp solid transparent;
+    border-bottom: 3px solid transparent;
+    font-size: .9rem;
     font-weight: 600;
     color: var(--text-light);
     transition: all .3s ease;
 }
 
-.tab-btn.activer {
+.tab-btn:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-btn.active {
     color: var(--primary-color);
     border-bottom-color: var(--primary-color);
 }
